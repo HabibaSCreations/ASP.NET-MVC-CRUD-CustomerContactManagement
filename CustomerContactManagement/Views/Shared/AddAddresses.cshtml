@@ -1,0 +1,24 @@
+﻿@model List<CustomerContactManagement.Models.Address>
+<table id="ExTable" class="table table-bordered" >
+	<thead><tr>
+		<th>Address Name</th> <th>City</th><th>State</th><th></th>
+	</tr></thead>
+	<tbody>         
+	@for(int i=0; i < Model.Count; i++)
+	{
+		<tr><td>
+			<input type="text" class="form-control" name="Addresses[@i].AddressType" value="@Model[i].AddressType" />
+		</td><td>
+			<input type="text" class="form-control" name="Addresses[@i].City" value="@Model[i].City" />
+		</td><td>
+		<input type="text" class="form-control" name="Addresses[@i].State" value="@Model[i].State" /></td>
+		<td>
+			@if (i > 0)
+			{
+				<button type="button" class="btn btn-danger" onclick="deleteRow(this)">Delete</button>
+			}
+		</td></tr>}
+	</tbody>
+</table>
+<input  type="hidden" id="HIndex" value="@Model.Count"/>
+

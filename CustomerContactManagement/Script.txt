@@ -1,0 +1,32 @@
+﻿CREATE TABLE [dbo].[CustomerType]
+(
+	[CustomerTypeId] INT NOT NULL PRIMARY KEY  IDENTITY (1, 1) ,
+	[CustomerTypeName]  VARCHAR (50) NOT NULL
+)
+
+
+
+CREATE TABLE [dbo].[Customer] (
+    [CustomerId]     INT   PRIMARY KEY       IDENTITY (100, 1) NOT NULL,
+    [CustomerName] Varchar(50) NOT NULL,
+    [DateOfBirth] DATETIME      NOT NULL,
+    [MobileNo]      VARCHAR (11)  NOT NULL,
+    [IsActive]    BIT           NOT NULL,
+	 [ImageUrl]      VARCHAR (100) NULL,
+	 [DepositeAmount] decimal NOT NULL,
+	 [Email] Varchar(50) NOT NULL,
+    [CustomerTypeId]      INT           NOT NULL,	
+    FOREIGN KEY ([CustomerTypeId]) REFERENCES [dbo].[CustomerType] ([CustomerTypeId]) ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE [dbo].[Address]
+(
+	[AddressId] INT NOT NULL PRIMARY KEY IDENTITY(1,1),	
+    [AddressType]     VARCHAR (50) NOT NULL,
+    [City]       Varchar(50)          NOT NULL,
+	[State] Varchar(50) NOT NULL,
+	[CustomerId] INT NOT NULL,
+    FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([CustomerId])
+)

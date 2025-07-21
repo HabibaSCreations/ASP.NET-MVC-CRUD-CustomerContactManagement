@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CustomerContactManagement.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer List</h2>
+<div>
+	<a href="@Url.Action("Create","Customers")" class="btn btn-success float-end mb-2">Add Customer</a>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>CustomerName</th>
+            <th>DateOfBirth</th>
+            <th>MobileNo</th>
+            <th>IsActive</th>
+            <th>DepositeAmount</th>
+            <th>CustomerTypeName</th>
+            <th>City</th>
+            @*<th>State</th>
+            <th>AddressType</th>*@
+            <th>Action</th>
+        </tr>
+    
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+	            <td><img src="@Url.Content("~/images/"+p.ImageUrl)" height="100" /></td>
+	            <td>@p.CustomerName</td>
+	            <td>@p.DateOfBirth.ToString("yyyy-MM-dd")</td>
+	            <td>@p.MobileNo</td>
+	            <td>@(p.IsActive? "Active": "Not Active")</td>
+
+	            <td>@p.DepositeAmount</td>
+	            <td>@p.CustomerType.CustomerTypeName</td>
+	         
+            
+                <td>
+                    <ul>
+                        @foreach (var a in p.Addresses)
+                        {
+                            <li>@a.City -@a.State</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Customers", new{id=p.CustomerId})" class="btn btn-primary btn-sm">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Customers", new {id=p.CustomerId})" onclick="return confirm('Are you sure you want to delete @p.CustomerName')">Delete</a>
+                    @*<a href="@Url.Action("Delete","Customers",new{id=p.CustomerId}))" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete @p.CustomerName')">Delete</a>*@
+                </td>
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
